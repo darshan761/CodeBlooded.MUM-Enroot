@@ -48,10 +48,12 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.android.gms.location.LocationCallback;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 import java.util.Random;
@@ -78,12 +80,14 @@ public class MapsActivity extends AppCompatActivity
     GeoFire geoFire;
     Marker myCurrent;
 
+    LatLng dangerous_area[] = new LatLng[20];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        ref = FirebaseDatabase.getInstance().getReference("MyLocation");
+        ref = FirebaseDatabase.getInstance().getReference("Zones");
         geoFire = new GeoFire(ref);
 
 
@@ -92,7 +96,6 @@ public class MapsActivity extends AppCompatActivity
 
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
-
 
 
           }
@@ -122,10 +125,50 @@ public class MapsActivity extends AppCompatActivity
 
         myMap  = googleMap;
 
+        //Dynamic zones logic
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                int i = 0;
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+
+                    Zone zone = ds.getValue(Zone.class);
+                    double latZone = Double.parseDouble(zone.getZoneLat().toString().trim());
+                    double lonZone = Double.parseDouble(zone.getZoneLong().toString().trim());
+
+                    dangerous_area[i] = new LatLng(latZone, lonZone);
+
+                    myMap.addCircle(new CircleOptions()
+                            .center(dangerous_area[i])
+                            .radius(500)
+                            .strokeColor(Color.BLUE)
+                            .fillColor(0x220000ff)
+                            .strokeWidth(5.0f));
+
+                    i++;
+
+                }
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
         //Creating Dangerous Area
-        LatLng dangerous_area = new LatLng(19.0729216,72.9008471);
+        LatLng dangerous_area1 = new LatLng(19.0729216,72.9008471);
         myMap.addCircle(new CircleOptions()
-                .center(dangerous_area)
+                .center(dangerous_area1)
                 .radius(500)
                 .strokeColor(Color.BLUE)
                 .fillColor(0x220000ff)
@@ -142,7 +185,7 @@ public class MapsActivity extends AppCompatActivity
 
         //Add GeoQuery Here
 
-        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(dangerous_area.latitude,dangerous_area.longitude),0.5f);
+        /*GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(dangerous_area1.latitude,dangerous_area1.longitude),0.5f);
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -174,7 +217,7 @@ public class MapsActivity extends AppCompatActivity
                 Log.e("Error","check:"+error);
 
             }
-        });
+        });*/
 
     }
 
@@ -259,7 +302,7 @@ public class MapsActivity extends AppCompatActivity
 
             Log.d("MyTag",ss+ ", "+sss);
 
-            geoFire.setLocation("You", new GeoLocation(latti, longi), new GeoFire.CompletionListener() {
+            /*geoFire.setLocation("You", new GeoLocation(latti, longi), new GeoFire.CompletionListener() {
                 @Override
                 public void onComplete(String key, DatabaseError error) {
                     //ADD Marker
@@ -273,7 +316,7 @@ public class MapsActivity extends AppCompatActivity
                     //Move The Camera Position
                     myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latti,longi),16.0f));
                 }
-            });
+            });*/
 
 
             LatLng latLng = new LatLng(latti, longi);
