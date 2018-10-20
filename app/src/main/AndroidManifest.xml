@@ -32,11 +32,15 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".AccountSetting" />
-        <activity
-            android:name=".MapsActivity">
-            <!--android:label="@string/title_activity_maps"-->
+        <activity android:name=".MapsActivity">
+
+            <!-- android:label="@string/title_activity_maps" -->
 
         </activity>
+        <activity
+            android:name=".MapsActivity2"
+            android:label="@string/title_activity_maps2" />
+        <activity android:name=".Ambulance"></activity>
     </application>
 
 </manifest>

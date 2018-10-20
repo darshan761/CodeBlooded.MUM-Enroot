@@ -59,7 +59,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class MapsActivity extends AppCompatActivity
+public class MapsActivity2 extends AppCompatActivity
         implements OnMapReadyCallback {
 
     GoogleMap mGoogleMap;
@@ -86,9 +86,9 @@ public class MapsActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_maps2);
 
-        ref = FirebaseDatabase.getInstance().getReference("Zones");
+        ref = FirebaseDatabase.getInstance().getReference("AmbulanceZones");
         geoFire = new GeoFire(ref);
 
 
@@ -99,7 +99,7 @@ public class MapsActivity extends AppCompatActivity
         mapFrag.getMapAsync(this);
 
 
-          }
+    }
 
     @Override
     public void onPause() {
@@ -136,52 +136,19 @@ public class MapsActivity extends AppCompatActivity
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
 
-                    Zone zone = ds.getValue(Zone.class);
-                    double latZone = Double.parseDouble(zone.getZoneLat().toString().trim());
-                    double lonZone = Double.parseDouble(zone.getZoneLong().toString().trim());
+                    AmbulanceZone zone = ds.getValue(AmbulanceZone.class);
+                    double latZone = Double.parseDouble(zone.getSosLat().toString().trim());
+                    double lonZone = Double.parseDouble(zone.getSasLong().toString().trim());
+                    int ln = Integer.parseInt(zone.getSosRadius());
 
                     dangerous_area[i] = new LatLng(latZone, lonZone);
 
                     myMap.addCircle(new CircleOptions()
                             .center(dangerous_area[i])
-                            .radius(500)
+                            .radius(ln)
                             .strokeColor(Color.BLUE)
                             .fillColor(0x220000ff)
                             .strokeWidth(5.0f));
-
-                     /*geoQuery[i] = geoFire.queryAtLocation(new GeoLocation(dangerous_area[i].latitude,dangerous_area[i].longitude),0.5f);
-                    geoQuery[i].addGeoQueryEventListener(new GeoQueryEventListener() {
-                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-                        @Override
-
-                        public void onKeyEntered(String key, GeoLocation location) {
-                            sendNotification("DangerZone",String.format("%s Entered into the ZoneArea",key));
-                            Log.d("INSIDE", "flag");
-                        }
-
-                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-                        @Override
-                        public void onKeyExited(String key) {
-                            sendNotification("DangerZone",String.format("%s Exited from the ZoneArea",key));
-
-                        }
-
-                        @Override
-                        public void onKeyMoved(String key, GeoLocation location) {
-                            Log.d("MOVE",String.format("%s Moving within the dangerous area[%f/%f]",key,location.latitude,location.longitude));
-                        }
-
-                        @Override
-                        public void onGeoQueryReady() {
-
-                        }
-
-                        @Override
-                        public void onGeoQueryError(DatabaseError error) {
-                            Log.e("Error","check:"+error);
-
-                        }
-                    });*/
 
                     i++;
 
@@ -200,8 +167,8 @@ public class MapsActivity extends AppCompatActivity
 
 
 
-        /*//Creating Dangerous Area
-        LatLng dangerous_area1 = new LatLng(19.0729216,72.9008471);
+        //Creating Dangerous Area
+        /*LatLng dangerous_area1 = new LatLng(19.0729216,72.9008471);
         myMap.addCircle(new CircleOptions()
                 .center(dangerous_area1)
                 .radius(500)
@@ -216,11 +183,11 @@ public class MapsActivity extends AppCompatActivity
                 .radius(500)
                 .strokeColor(Color.BLUE)
                 .fillColor(0x220000ff)
-                .strokeWidth(5.0f));
+                .strokeWidth(5.0f));*/
 
         //Add GeoQuery Here
 
-       /* GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(dangerous_area1.latitude,dangerous_area1.longitude),0.5f);
+        /*GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(dangerous_area1.latitude,dangerous_area1.longitude),0.5f);
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -296,11 +263,11 @@ public class MapsActivity extends AppCompatActivity
     }
 
     private void getLocation() {
-        if (ActivityCompat.checkSelfPermission(MapsActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+        if (ActivityCompat.checkSelfPermission(MapsActivity2.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (MapsActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                (MapsActivity2.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+            ActivityCompat.requestPermissions(MapsActivity2.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
         } else {
 
@@ -312,18 +279,18 @@ public class MapsActivity extends AppCompatActivity
 
             if (location != null) {
                 latti = location.getLatitude();
-                 longi = location.getLongitude();
+                longi = location.getLongitude();
 
 
             } else  if (location1 != null) {
-                 latti = location1.getLatitude();
-                 longi = location1.getLongitude();
+                latti = location1.getLatitude();
+                longi = location1.getLongitude();
 
 
 
             } else  if (location2 != null) {
-                 latti = location2.getLatitude();
-                 longi = location2.getLongitude();
+                latti = location2.getLatitude();
+                longi = location2.getLongitude();
 
 
             }else{
@@ -386,7 +353,7 @@ public class MapsActivity extends AppCompatActivity
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(MapsActivity.this,
+                                ActivityCompat.requestPermissions(MapsActivity2.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION );
                             }
