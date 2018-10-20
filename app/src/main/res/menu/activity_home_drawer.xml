@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/createZone"
+            android:icon="@drawable/signup_buttton"
+            android:title="Create Zone" />
+
+        <item
+            android:id="@+id/accSetting"
+            android:title="Account setting"
+            android:icon="@drawable/account_settings_icon"/>
+        <item
+            android:id="@+id/show_maps"
+            android:icon="@drawable/signup_buttton"
+            android:title="Maps"
+            />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/signup_buttton"
+            android:title="Logout"
+            />
+    </group>
+
+</menu>
