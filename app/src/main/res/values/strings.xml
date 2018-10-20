@@ -4,4 +4,10 @@
     <string name="auth_failed">Please, check your email and password or Sign up</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string-array name="fine_type">
+        <item>Overspeeding</item>
+        <item>Signal Violation</item>
+        <item>No helmet</item>
+        <item>Wrong side</item>
+    </string-array>
 </resources>
