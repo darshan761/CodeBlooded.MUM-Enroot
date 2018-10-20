@@ -47,7 +47,6 @@
                 android:layout_margin="5dp"
                 android:layout_weight="0.5"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/profile_image_add"
                 android:background="?android:attr/selectableItemBackground"/>
         </LinearLayout>
 
