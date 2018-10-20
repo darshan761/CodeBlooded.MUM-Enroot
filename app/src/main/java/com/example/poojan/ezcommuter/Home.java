@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class Home extends AppCompatActivity {
@@ -104,8 +105,28 @@ public class Home extends AppCompatActivity {
                             startActivity(intent);
                         }
                         if(menuItem.getItemId() == R.id.fine){
-                            Intent i = new Intent(Home.this,Fine.class);
-                            Toast.makeText(Home.this,"DJgyu",Toast.LENGTH_LONG).show();
+
+                            final Intent i = new Intent(Home.this,Fine.class);
+                            final Intent u = new Intent(Home.this,UserFine.class);
+                            Query y = FirebaseDatabase.getInstance().getReference().child("user_details")
+                                    .child("userEmail").equalTo(auth.getCurrentUser().getEmail());
+                            y.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.child("UserType").getValue().toString().equals("commuters")){
+                                        startActivity(u);
+                                    }
+                                    else{
+                                        startActivity(i);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
                             startActivity(i);
                         }
                         /*if(menuItem.getItemId() == R.id.bookmark){
