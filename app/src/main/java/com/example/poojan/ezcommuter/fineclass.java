@@ -9,6 +9,7 @@ public class fineclass {
     String email;
     String type;
     String amt;
+    fineclass(){}
     fineclass(String o,String e,String t,String a){
         Officer = o;
         email = e;

@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -104,6 +105,7 @@ public class Home extends AppCompatActivity {
                         }
                         if(menuItem.getItemId() == R.id.fine){
                             Intent i = new Intent(Home.this,Fine.class);
+                            Toast.makeText(Home.this,"DJgyu",Toast.LENGTH_LONG).show();
                             startActivity(i);
                         }
                         /*if(menuItem.getItemId() == R.id.bookmark){
