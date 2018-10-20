@@ -4,12 +4,14 @@ public class User {
     private String userName;
     private String userEmail;
     private String userImgUrl;
+    private String userType;
     private String token;
 
-    public User(String userName, String userEmail, String userImgUrl, String token) {
+    public User(String userName, String userEmail, String userImgUrl, String userType, String token) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userImgUrl = userImgUrl;
+        this.userType = userType;
         this.token = token;
     }
 
@@ -37,6 +39,12 @@ public class User {
 
     public void setUserImgUrl(String userImgUrl) {
         this.userImgUrl = userImgUrl;
+    }
+
+    public String getUserType(){ return userType; }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public String getToken(){ return token; }

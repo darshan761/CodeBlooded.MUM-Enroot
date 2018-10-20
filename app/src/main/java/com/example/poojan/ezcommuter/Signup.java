@@ -107,12 +107,12 @@ public class Signup extends AppCompatActivity {
                                     Log.d("Info", "Task successful..");
                                     Log.d("Info", "Commit...");
                                     DatabaseReference mDatabase = FirebaseDatabase.getInstance()
-                                            .getReference("user_details").child("commuters");
+                                            .getReference("user_details");
                                     String token = FirebaseInstanceId.getInstance().getToken();
                                     Log.d("Info", "Username: " + username);
                                     Log.d("Info", "Email:" + email);
 
-                                    User user = new User(username, email, null,token);
+                                    User user = new User(username, email, null, "commuters",token);
                                     mDatabase.child(auth.getUid()).setValue(user);
 
                                     dialog.dismiss();

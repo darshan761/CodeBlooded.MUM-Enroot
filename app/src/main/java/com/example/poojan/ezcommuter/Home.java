@@ -73,7 +73,7 @@ public class Home extends AppCompatActivity {
                         drawer.closeDrawers();
 
                         if(menuItem.getItemId() == R.id.logout){
-                            dbtoken = FirebaseDatabase.getInstance().getReference().child("user_details").child("commuters")
+                            dbtoken = FirebaseDatabase.getInstance().getReference().child("user_details")
                                     .child(auth.getUid()).child("token");
                             dbtoken.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
@@ -98,11 +98,11 @@ public class Home extends AppCompatActivity {
                             }
                             return true;
                         }
-                        /*if(menuItem.getItemId() == R.id.accSetting){
-                            Intent intent = new Intent(MainActivity.this, AccountSetting.class);
+                        if(menuItem.getItemId() == R.id.accSetting){
+                            Intent intent = new Intent(Home.this, AccountSetting.class);
                             startActivity(intent);
                         }
-                        if(menuItem.getItemId() == R.id.bookmark){
+                        /*if(menuItem.getItemId() == R.id.bookmark){
                             Intent intent = new Intent(MainActivity.this, Bookmark.class);
                             startActivity(intent);
                         }
@@ -122,7 +122,7 @@ public class Home extends AppCompatActivity {
         userEmail = navigationView.getHeaderView(0).findViewById(R.id.head_email);
 
         Log.d("auth_id",auth.getUid());
-        dbuser = FirebaseDatabase.getInstance().getReference().child("user_details").child("commuters").child(auth.getUid());
+        dbuser = FirebaseDatabase.getInstance().getReference().child("user_details").child(auth.getUid());
         dbuser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

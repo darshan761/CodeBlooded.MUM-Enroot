@@ -99,7 +99,7 @@ public class Login extends AppCompatActivity {
                                 } else {
                                     loginProgress.dismiss();
                                     String token = FirebaseInstanceId.getInstance().getToken();
-                                    dbtoken = FirebaseDatabase.getInstance().getReference().child("user_details").child("commuters")
+                                    dbtoken = FirebaseDatabase.getInstance().getReference().child("user_details")
                                             .child(auth.getUid()).child("token");
                                     dbtoken.setValue(token);
                                     startActivity(new Intent(Login.this, Home.class));
