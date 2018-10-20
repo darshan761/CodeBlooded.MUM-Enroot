@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "428120236017",
+    "firebase_url": "https://ezcommuter.firebaseio.com",
+    "project_id": "ezcommuter",
+    "storage_bucket": "ezcommuter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428120236017:android:b060fd022548030f",
+        "android_client_info": {
+          "package_name": "com.example.poojan.ezcommuter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428120236017-30qp96s3k5q7nopa0vasdd61h1ua522n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.poojan.ezcommuter",
+            "certificate_hash": "6199c39052597b096f5aa6e5137f6f6791afedfa"
+          }
+        },
+        {
+          "client_id": "428120236017-cha5albpiom87u1hb7g00k85is68lrrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAESHEWWGGz_kmckJrLtGRoZ-vg015egLM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428120236017-cha5albpiom87u1hb7g00k85is68lrrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

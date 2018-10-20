@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0d517c</color>
+    <color name="colorPrimaryDark">#1B3D54</color>
+    <color name="colorAccent">#004d99</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="login_bg_gradient_start">#013558</color>
+    <color name="login_bg_gradient_end">#17a7c1</color>
+    <color name="grey">#383838</color>
+    <color name="voilet">#5F3A85</color>
+    <color name="golden">#EFA248</color>
+    <color name="red">#E4819E</color>
+    <color name="lightblue">#2bbefc</color>
+    <color name="green">#82E499</color>
+    <color name="light_green">#9fe6be</color>
+    <color name="lightgrey">#B2BABB</color>
+    <color name="rolecolor">#7b7b7b</color>
+    <color name="lowgray">#d1dcdc</color>
+    <color name="message_back">#eeeeee</color>
+    <color name="light_blue">#c0dfff</color>
+    <color name="blue_light">#4895ef</color>
+    <color name="blue_bright">#004d99</color>
+    <color name="message">#898989</color>
+    <color name="comment_highlight">#E5EDF4</color>
+    <color name="broadcast_notif">#f77d04</color>
+    <color name="text_color">#485866</color>
+</resources>

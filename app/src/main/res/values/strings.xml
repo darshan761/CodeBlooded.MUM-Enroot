@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">EZCommuter</string>
+    <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
+    <string name="auth_failed">Please, check your email and password or Sign up</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
