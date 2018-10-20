@@ -101,7 +101,7 @@ public class Home extends AppCompatActivity {
                             return true;
                         }
                         if(menuItem.getItemId() == R.id.accSetting){
-                            Intent intent = new Intent(Home.this, AccountSetting.class);
+                            Intent intent = new Intent(Home.this, MapsActivity.class);
                             startActivity(intent);
                         }
                         if(menuItem.getItemId() == R.id.createZone){
