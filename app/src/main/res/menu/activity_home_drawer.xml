@@ -19,9 +19,16 @@
             android:title="Maps"
             />
         <item
-            android:id="@+id/fine"
+            android:id="@+id/fineOfficer"
             android:icon="@drawable/signup_buttton"
-            android:title="Fine"
+            android:title="Charge Fine"
+            android:visible="false"
+            />
+        <item
+            android:id="@+id/viewFine"
+            android:icon="@drawable/signup_buttton"
+            android:title="View Fine"
+            android:visible="false"
             />
         <item
             android:id="@+id/logout"

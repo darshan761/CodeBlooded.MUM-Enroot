@@ -12,8 +12,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,7 +21,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class Home extends AppCompatActivity {
@@ -35,6 +34,7 @@ public class Home extends AppCompatActivity {
     RecyclerView recyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
     LinearLayoutManager layoutManager;
+
     private static final int ITEM_TO_LOAD = 30;
     private int mCurrentPage = 1;
     @Override
@@ -64,7 +64,7 @@ public class Home extends AppCompatActivity {
         recyclerView = findViewById(R.id.rv_bookList);
         mSwipeRefreshLayout = findViewById(R.id.swip);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -104,36 +104,15 @@ public class Home extends AppCompatActivity {
                             Intent intent = new Intent(Home.this, AccountSetting.class);
                             startActivity(intent);
                         }
-                        if(menuItem.getItemId() == R.id.fine){
-
-                            final Intent i = new Intent(Home.this,Fine.class);
-                            final Intent u = new Intent(Home.this,UserFine.class);
-                            Query y = FirebaseDatabase.getInstance().getReference().child("user_details")
-                                    .child("userEmail").equalTo(auth.getCurrentUser().getEmail());
-                            y.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    if(dataSnapshot.child("UserType").getValue().toString().equals("commuters")){
-                                        startActivity(u);
-                                    }
-                                    else{
-                                        startActivity(i);
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-
-                            startActivity(i);
-                        }
-                        /*if(menuItem.getItemId() == R.id.bookmark){
-                            Intent intent = new Intent(MainActivity.this, Bookmark.class);
+                        if(menuItem.getItemId() == R.id.createZone){
+                            Intent intent = new Intent(Home.this, CreateZone.class);
                             startActivity(intent);
                         }
-                        if(menuItem.getItemId() == R.id.broadcast){
+                        if(menuItem.getItemId() == R.id.fineOfficer){
+                            Intent intent = new Intent(Home.this, Fine.class);
+                            startActivity(intent);
+                        }
+                        /*if(menuItem.getItemId() == R.id.broadcast){
                             Intent intent = new Intent(MainActivity.this, Broadcast.class);
                             startActivity(intent);
                         }*/
@@ -156,6 +135,11 @@ public class Home extends AppCompatActivity {
                 User user = dataSnapshot.getValue(User.class);
                 userName.setText(user.getUserName().toString());
                 userEmail.setText(user.getUserEmail().toString());
+                if(user.getUserType().equals("commuters")){
+                    navigationView.getMenu().findItem(R.id.viewFine).setVisible(true);
+                }else if(user.getUserType().equals("officer")){
+                    navigationView.getMenu().findItem(R.id.fineOfficer).setVisible(true);
+                }
             }
 
             @Override

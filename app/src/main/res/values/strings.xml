@@ -5,9 +5,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string-array name="fine_type">
-        <item>Overspeeding</item>
+        <item>OverSpeeding</item>
         <item>Signal Violation</item>
-        <item>No helmet</item>
+        <item>No Helmet</item>
         <item>Wrong side</item>
     </string-array>
 </resources>

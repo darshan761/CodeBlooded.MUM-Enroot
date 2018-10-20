@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/login_background"
+    tools:context=".CreateZone">
+
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="213dp"
+        android:layout_height="139dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="63dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:scaleType="fitCenter"
+        android:visibility="visible" />
+
+
+    <Button
+        android:id="@+id/capture"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="CAPTURE ZONE" />
+
+    <Button
+        android:id="@+id/save_local"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="Save To Gallery"
+        android:layout_alignParentLeft="true" />
+
+    <Button
+        android:id="@+id/save_cloud"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="Upload The Zone"
+        android:layout_alignParentRight="true" />
+
+    <EditText
+        android:id="@+id/editTextSolution"
+        android:layout_width="182dp"
+        android:layout_height="82dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="79dp"
+        android:ems="10"
+        android:hint="Give Solution"
+        android:inputType="textPersonName"
+        android:layout_alignParentRight="true" />
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="162dp"
+        android:layout_height="82dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/editTextSolution"
+        android:ems="10"
+        android:hint="Give Description"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="false"
+        android:layout_alignParentLeft="true" />
+
+    <RadioGroup
+        android:id="@+id/RGDonatecategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="184dp">
+
+        <RadioButton
+            android:id="@+id/RBDonatetoys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="checkButton"
+            android:text="Potholes"
+            android:textSize="30dp" />
+
+        <RadioButton
+            android:id="@+id/RBDonatefood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="checkButton"
+            android:text="Tree Falling"
+            android:textSize="30dp" />
+
+        <RadioButton
+            android:id="@+id/RBDonatestationery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="checkButton"
+            android:text="Live Wires"
+            android:textSize="30dp" />
+
+        <RadioButton
+            android:id="@+id/RBDonateclothes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="checkButton"
+            android:text="Others"
+            android:textSize="30dp" />
+    </RadioGroup>
+
+
+</RelativeLayout>

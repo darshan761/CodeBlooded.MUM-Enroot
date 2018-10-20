@@ -111,7 +111,6 @@ public class AccountSetting extends AppCompatActivity {
 
     public void onBackPressed() {
         super.onBackPressed();
-
         Intent i = new Intent(AccountSetting.this,Home.class);
         startActivity(i);
         finish();

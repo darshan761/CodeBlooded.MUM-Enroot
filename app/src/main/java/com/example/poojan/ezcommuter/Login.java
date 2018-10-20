@@ -40,13 +40,6 @@ public class Login extends AppCompatActivity {
         loginProgress = ProgressDialog.show(this, null, "Please wait...", true);
         loginProgress.setCancelable(false);
 
-        if (auth.getCurrentUser() != null) {
-            loginProgress.dismiss();
-            startActivity(new Intent(Login.this, Home.class));
-            finish();
-            return;
-        }
-
         loginProgress.dismiss();
         inputEmail = findViewById(R.id.email);
         inputPassword = findViewById(R.id.password);
