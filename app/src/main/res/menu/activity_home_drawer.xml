@@ -19,6 +19,11 @@
             android:title="Maps"
             />
         <item
+            android:id="@+id/fine"
+            android:icon="@drawable/signup_buttton"
+            android:title="Fine"
+            />
+        <item
             android:id="@+id/logout"
             android:icon="@drawable/signup_buttton"
             android:title="Logout"

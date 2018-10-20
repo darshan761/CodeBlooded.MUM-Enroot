@@ -102,6 +102,10 @@ public class Home extends AppCompatActivity {
                             Intent intent = new Intent(Home.this, AccountSetting.class);
                             startActivity(intent);
                         }
+                        if(menuItem.getItemId() == R.id.fine){
+                            Intent i = new Intent(Home.this,Fine.class);
+                            startActivity(i);
+                        }
                         /*if(menuItem.getItemId() == R.id.bookmark){
                             Intent intent = new Intent(MainActivity.this, Bookmark.class);
                             startActivity(intent);
