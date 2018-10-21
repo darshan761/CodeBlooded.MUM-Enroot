@@ -19,7 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class UserFine extends AppCompatActivity {
+public class FineRules extends AppCompatActivity {
 
     FirebaseAuth auth;
     android.support.v7.widget.Toolbar toolbar;
@@ -27,17 +27,17 @@ public class UserFine extends AppCompatActivity {
     RecyclerView recyclerView;
     SwipeRefreshLayout mSwipeRefreshLayout;
     LinearLayoutManager layoutManager;
-    FirebaseRecyclerAdapter<fineclass, Adapter> adapter;
+    FirebaseRecyclerAdapter<Long, Adapter1> adapter;
     private static final int ITEM_TO_LOAD = 30;
     private int mCurrentPage = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_fine);
+        setContentView(R.layout.activity_fine_rules);
 
         toolbar = findViewById(R.id.feature_req_toolbar);
-        toolbar.setTitle("Your Fines");
+        toolbar.setTitle("Fines Rates");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -49,7 +49,7 @@ public class UserFine extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        recyclerView = findViewById(R.id.rv_bookList);
+        recyclerView = findViewById(R.id.card_view1);
         mSwipeRefreshLayout = findViewById(R.id.swip);
 
         loaddata();
@@ -61,25 +61,23 @@ public class UserFine extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        DatabaseReference dbref = FirebaseDatabase.getInstance().getReference().child("Fine");
+        DatabaseReference dbref = FirebaseDatabase.getInstance().getReference().child("FineType");
         dbref.keepSynced(true);
 
-        adapter = new FirebaseRecyclerAdapter<fineclass, Adapter>
-                (fineclass.class, R.layout.cardview,
-                        Adapter.class,
+        adapter = new FirebaseRecyclerAdapter<Long, Adapter1>
+                (Long.class, R.layout.cardview1,
+                        Adapter1.class,
                         dbref.limitToLast(mCurrentPage * ITEM_TO_LOAD)) {
 
-            public void populateViewHolder(final Adapter fadapter,
-                                           final fineclass fc, final int position) {
+            public void populateViewHolder(final Adapter1 fadapter,
+                                           final Long fc, final int position) {
                 String key = this.getRef(position).getKey().toString();
                 Log.d("key",key);
                 Log.d("Position", String.valueOf(position));
-
                 fadapter.setKey(key);
                 fadapter.setContext(getApplicationContext());
-                fadapter.setOfficer(fc.getOfficer());
-                fadapter.setType(fc.getType());
-                fadapter.setAmt(fc.getAmt());
+                fadapter.setType(key);
+                fadapter.setAmt(fc.toString());
             }
         };
         recyclerView.setAdapter(adapter);

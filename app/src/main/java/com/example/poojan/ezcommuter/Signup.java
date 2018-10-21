@@ -31,6 +31,7 @@ public class Signup extends AppCompatActivity {
     private Button btnSignUp;
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
+    String userType;
     FirebaseAuth mAuth;
     FirebaseAuth.AuthStateListener mAuthListener;
     @Override
@@ -38,6 +39,10 @@ public class Signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null){
+            userType = bundle.getString("type");
+        }
         btnSignUp = findViewById(R.id.sign_up_button);
         btnSignIn = findViewById(R.id.sign_in_button);
         btnSignUp = findViewById(R.id.sign_up_button);
@@ -112,7 +117,7 @@ public class Signup extends AppCompatActivity {
                                     Log.d("Info", "Username: " + username);
                                     Log.d("Info", "Email:" + email);
 
-                                    User user = new User(username, email, null, "commuters",token);
+                                    User user = new User(username, email, null, userType,token);
                                     mDatabase.child(auth.getUid()).setValue(user);
 
                                     dialog.dismiss();

@@ -52,6 +52,7 @@ public class CreateZone extends AppCompatActivity /*implements View.OnClickListe
     private static final String TAG = "CapturePicture";
     static final int REQUEST_PICTURE_CAPTURE = 1;
     private ImageView image;
+    private TextView capture;
     private String pictureFilePath;
     private FirebaseStorage firebaseStorage;
     private String deviceIdentifier;
@@ -94,28 +95,24 @@ public class CreateZone extends AppCompatActivity /*implements View.OnClickListe
         auth = FirebaseAuth.getInstance();
         image = findViewById(R.id.picture);
         mProgress = new ProgressDialog(this);
-        Button captureButton = findViewById(R.id.capture);
-        captureButton.setOnClickListener(capture);
-
+        capture = findViewById(R.id.capture);
         //saveData = findViewById(R.id.save_data);
         //saveData.setOnClickListener(this);
 
-        findViewById(R.id.save_local).setOnClickListener(saveGallery);
+        //findViewById(R.id.save_local).setOnClickListener(saveGallery);
         findViewById(R.id.save_cloud).setOnClickListener(saveCloud);
 
         firebaseStorage = FirebaseStorage.getInstance();
-    }
-
-
-    private View.OnClickListener capture = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivityForResult(intent, CAMERA_REQUEST_CODE);
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent, CAMERA_REQUEST_CODE);
+                }
             }
-        }
-    };
+        });
+    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
@@ -128,24 +125,6 @@ public class CreateZone extends AppCompatActivity /*implements View.OnClickListe
             image.setImageBitmap(imageBitmap);
         }
     }
-
-    //save captured picture in gallery
-    private View.OnClickListener saveGallery = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            addToGallery();
-        }
-    };
-
-    private void addToGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        File f = new File(pictureFilePath);
-        Uri picUri = Uri.fromFile(f);
-        galleryIntent.setData(picUri);
-        this.sendBroadcast(galleryIntent);
-        Toast.makeText(CreateZone.this, "Image has been uploaded to phone storage" + pictureFilePath, Toast.LENGTH_SHORT).show();
-    }
-
 
     //save captured picture on cloud storage
     private View.OnClickListener saveCloud = new View.OnClickListener() {
@@ -216,7 +195,7 @@ public class CreateZone extends AppCompatActivity /*implements View.OnClickListe
                         final String ZoneLat = Lat;
                         final String ZoneLong = Logg;
                         String ZoneKey = databaseReference.push().getKey();
-                        Zone zn = new Zone(ZoneKey, ZoneTitle, ZoneData, ZoneSolution,
+                        Zone zn = new Zone(auth.getUid(), ZoneTitle, ZoneData, ZoneSolution,
                                 ZoneLat, ZoneLong, "null", "null", zoneImageURI);
                         databaseReference.child(ZoneKey).setValue(zn);
                         Toast.makeText(CreateZone.this, " All The Details Added Successfully", Toast.LENGTH_SHORT).show();
@@ -232,7 +211,7 @@ public class CreateZone extends AppCompatActivity /*implements View.OnClickListe
     };
 
 
-    private void addToCloudStorage() {
+    /*private void addToCloudStorage() {
         File f = new File(pictureFilePath);
         Uri picUri = Uri.fromFile(f);
         final String cloudFilePath = deviceIdentifier + picUri.getLastPathSegment();
@@ -258,7 +237,7 @@ public class CreateZone extends AppCompatActivity /*implements View.OnClickListe
                 Toast.makeText(CreateZone.this, "Image has been uploaded to cloud storage", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 
     public void checkButton(View view)
     {

@@ -1,6 +1,7 @@
 package com.example.poojan.ezcommuter;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -38,6 +39,7 @@ public class Fine extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        mAuth =FirebaseAuth.getInstance();
         final Spinner spinner = (Spinner) findViewById(R.id.finetype);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.fine_type, android.R.layout.simple_spinner_item);
@@ -47,10 +49,12 @@ public class Fine extends AppCompatActivity {
         user =  findViewById(R.id.email);
         btnLogin =  findViewById(R.id.fine);
         Log.d("spinner",spinner.getSelectedItem().toString());
-        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        ref.child("FineType").child(spinner.getSelectedItem().toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
+                .child("FineType").child(spinner.getSelectedItem().toString());
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("fine",spinner.getSelectedItem().toString());
                 amt.setText(dataSnapshot.getValue(Long.class).toString());
 
             }
@@ -58,18 +62,42 @@ public class Fine extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
-            }});
+            }
+        });
+
+        Log.d("fine",mAuth.getCurrentUser().getEmail());
+        Log.d("fineAmt",amt.getText().toString());
+        Log.d("fineUser",user.getText().toString());
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                final DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
+                        .child("FineType").child(spinner.getSelectedItem().toString());
+                ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.d("fine",spinner.getSelectedItem().toString());
+                        amt.setText(dataSnapshot.getValue(Long.class).toString());
 
-                fineclass fc = new fineclass(mAuth.getCurrentUser().getEmail(), user.getText().toString(), spinner.getSelectedItem().toString(), amt.getText().toString());
+                    }
 
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                final fineclass fc = new fineclass(mAuth.getCurrentUser().getEmail(),
+                        user.getText().toString(), spinner.getSelectedItem().toString(), amt.getText().toString());
+                Log.d("fine","Hello");
                 ref.child("Fine").push().setValue(fc);
-                }
+                Intent intent = new Intent(Fine.this, Home.class);
+                startActivity(intent);
+                finish();
+            }
 
 
         });
-
 
 
 

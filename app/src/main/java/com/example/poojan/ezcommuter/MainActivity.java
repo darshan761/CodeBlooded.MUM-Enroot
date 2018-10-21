@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,Signup.class);
+                intent.putExtra("type","commuters");
                 startActivity(intent);
             }
         });
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,Signup.class);
+                intent.putExtra("type","officer");
                 startActivity(intent);
             }
         });
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,Signup.class);
+                intent.putExtra("type","ambulance");
                 startActivity(intent);
             }
         });
