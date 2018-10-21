@@ -77,11 +77,12 @@ public class MapsActivity extends AppCompatActivity
     double latti , longi;
     private static final int REQUEST_LOCATION = 1;
     DatabaseReference ref;
-    GeoFire geoFire;
+    //GeoFire geoFire;
     Marker myCurrent;
 
     LatLng dangerous_area[] = new LatLng[20];
-    GeoQuery geoQuery[] = new GeoQuery[20];
+    GeoQuery geoQuery;
+    GeoFire geoFire;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +90,7 @@ public class MapsActivity extends AppCompatActivity
         setContentView(R.layout.activity_maps);
 
         ref = FirebaseDatabase.getInstance().getReference("Zones");
-        geoFire = new GeoFire(ref);
-
+        //geoFire = new GeoFire(ref);
 
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -149,48 +149,60 @@ public class MapsActivity extends AppCompatActivity
                             .fillColor(0x220000ff)
                             .strokeWidth(5.0f));
 
-                     /*geoQuery[i] = geoFire.queryAtLocation(new GeoLocation(dangerous_area[i].latitude,dangerous_area[i].longitude),0.5f);
-                    geoQuery[i].addGeoQueryEventListener(new GeoQueryEventListener() {
-                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-                        @Override
-
-                        public void onKeyEntered(String key, GeoLocation location) {
-                            sendNotification("DangerZone",String.format("%s Entered into the ZoneArea",key));
-                            Log.d("INSIDE", "flag");
-                        }
-
-                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-                        @Override
-                        public void onKeyExited(String key) {
-                            sendNotification("DangerZone",String.format("%s Exited from the ZoneArea",key));
-
-                        }
-
-                        @Override
-                        public void onKeyMoved(String key, GeoLocation location) {
-                            Log.d("MOVE",String.format("%s Moving within the dangerous area[%f/%f]",key,location.latitude,location.longitude));
-                        }
-
-                        @Override
-                        public void onGeoQueryReady() {
-
-                        }
-
-                        @Override
-                        public void onGeoQueryError(DatabaseError error) {
-                            Log.e("Error","check:"+error);
-
-                        }
-                    });*/
 
                     i++;
 
                 }
 
+                /*geoFire = new GeoFire(ref);
 
+                geoQuery = geoFire.queryAtLocation(new GeoLocation(dangerous_area[3].latitude,dangerous_area[3].longitude),0.5f);
+                Log.d("Before_geofire", geoQuery.toString());
+
+
+                geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
+
+
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                    @Override
+                    public void onKeyEntered(String key, GeoLocation location) {
+                        Log.d("INSIDE1", "flag");
+
+                        sendNotification("DangerZone",String.format("%s Entered into the ZoneArea",key));
+
+                        Log.d("INSIDE2", "flag");
+                    }
+
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                    @Override
+                    public void onKeyExited(String key) {
+                        sendNotification("DangerZone",String.format("%s Exited from the ZoneArea",key));
+
+                    }
+
+                    @Override
+                    public void onKeyMoved(String key, GeoLocation location) {
+                        Log.d("MOVE",String.format("%s Moving within the dangerous area[%f/%f]",key,location.latitude,location.longitude));
+                    }
+
+                    @Override
+                    public void onGeoQueryReady() {
+
+                    }
+
+                    @Override
+                    public void onGeoQueryError(DatabaseError error) {
+                        Log.e("Error","check:"+error);
+
+                    }
+                });
+
+                Log.d("After_geofire", geoQuery.toString());*/
 
 
             }
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -258,6 +270,9 @@ public class MapsActivity extends AppCompatActivity
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private void sendNotification(String title, String content) {
+
+        Toast.makeText(this, "Hello from the other side", Toast.LENGTH_LONG).show();
+        Log.d("inside_sendNotification", "flag");
         Notification.Builder builder = new Notification.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle(title)

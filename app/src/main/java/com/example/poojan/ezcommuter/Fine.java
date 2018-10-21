@@ -21,18 +21,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Fine extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    private EditText user;
+    private Button scanQR;
     android.support.v7.widget.Toolbar toolbar;
     private TextView amt;
     private Button btnLogin;
+
+    public String str;
+
+    private IntentIntegrator qrScan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fine);
+
+        qrScan = new IntentIntegrator(this);
         toolbar = findViewById(R.id.finne);
         toolbar.setTitle("Fine");
         setSupportActionBar(toolbar);
@@ -46,7 +57,7 @@ public class Fine extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         amt =  findViewById(R.id.amt);
-        user =  findViewById(R.id.email);
+        scanQR =  findViewById(R.id.scanQR);
         btnLogin =  findViewById(R.id.fine);
         Log.d("spinner",spinner.getSelectedItem().toString());
         final DatabaseReference ref = FirebaseDatabase.getInstance().getReference()
@@ -67,7 +78,8 @@ public class Fine extends AppCompatActivity {
 
         Log.d("fine",mAuth.getCurrentUser().getEmail());
         Log.d("fineAmt",amt.getText().toString());
-        Log.d("fineUser",user.getText().toString());
+      //  Log.d("fineUser",user.getText().toString());
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -86,11 +98,12 @@ public class Fine extends AppCompatActivity {
 
                     }
                 });
+                DatabaseReference reff = FirebaseDatabase.getInstance().getReference();
 
                 final fineclass fc = new fineclass(mAuth.getCurrentUser().getEmail(),
-                        user.getText().toString(), spinner.getSelectedItem().toString(), amt.getText().toString());
+                        str, spinner.getSelectedItem().toString(), amt.getText().toString());
                 Log.d("fine","Hello");
-                ref.child("Fine").push().setValue(fc);
+                reff.child("Fine").push().setValue(fc);
                 Intent intent = new Intent(Fine.this, Home.class);
                 startActivity(intent);
                 finish();
@@ -99,7 +112,42 @@ public class Fine extends AppCompatActivity {
 
         });
 
+        scanQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qrScan.initiateScan();
+            }
+
+        });
 
 
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            //if qrcode has nothing in it
+            if (result.getContents() == null) {
+                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
+            } else {
+                //if qr contains data
+                try {
+                    //converting the data to json
+                    JSONObject obj = new JSONObject(result.getContents());
+                    //setting values to textviews
+                    str = obj.toString().trim();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    //if control comes here
+                    //that means the encoded format not matches
+                    //in this case you can display whatever data is available on the qrcode
+                    //to a toast
+                    Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
+                }
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

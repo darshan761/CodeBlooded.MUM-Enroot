@@ -7,8 +7,14 @@
         <item
             android:id="@+id/createZone"
             android:icon="@drawable/create_zone"
-            android:title="Create Zone" />
-
+            android:title="Create Zone"
+            android:visible="false"/>
+        <item
+            android:id="@+id/createambulance"
+            android:icon="@drawable/create_zone"
+            android:title="Create Zone"
+            android:visible="false"
+            />
         <item
             android:id="@+id/accSetting"
             android:title="Account setting"
@@ -17,6 +23,12 @@
             android:id="@+id/show_maps"
             android:icon="@drawable/maps"
             android:title="Maps"
+            />
+        <item
+            android:id="@+id/ambulance"
+            android:icon="@drawable/fine"
+            android:title="Ambulance"
+
             />
         <item
             android:id="@+id/fineOfficer"

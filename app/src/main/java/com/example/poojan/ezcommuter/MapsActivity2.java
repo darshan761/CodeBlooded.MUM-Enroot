@@ -113,8 +113,8 @@ public class MapsActivity2 extends AppCompatActivity
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(120000); // two minute interval
-        mLocationRequest.setFastestInterval(120000);
+        mLocationRequest.setInterval(5000); // 5 sec interval
+        mLocationRequest.setFastestInterval(5000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

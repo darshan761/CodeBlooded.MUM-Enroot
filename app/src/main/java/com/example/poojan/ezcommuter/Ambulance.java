@@ -61,7 +61,7 @@ public class Ambulance extends AppCompatActivity implements View.OnClickListener
                 AmbulanceZone az = new AmbulanceZone(id , Lat , Logg , "600");
 
                 databaseReference.child(id).setValue(az);
-                Toast.makeText(this, Lat + ", " + Logg, Toast.LENGTH_SHORT);
+                Toast.makeText(this, Lat + ", " + Logg, Toast.LENGTH_SHORT).show();
             }
 
 

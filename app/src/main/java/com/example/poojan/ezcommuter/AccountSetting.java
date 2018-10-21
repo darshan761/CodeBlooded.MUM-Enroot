@@ -12,6 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,6 +48,8 @@ public class AccountSetting extends AppCompatActivity {
     private StorageReference mStorage;
     android.support.v7.widget.Toolbar toolbar;
     private static final int GALLERY_INTETN=2;
+
+    Button btnQR;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,8 @@ public class AccountSetting extends AppCompatActivity {
         accType = findViewById(R.id.accType);
         accEmail = findViewById(R.id.email);
         userImg = findViewById(R.id.userimg);
+
+        btnQR = (Button)findViewById(R.id.getQR);
 
         mStorage = FirebaseStorage.getInstance().getReference();
         dbref = FirebaseDatabase.getInstance().getReference().child("user_details").child(auth.getUid());
@@ -139,6 +144,15 @@ public class AccountSetting extends AppCompatActivity {
                     }
                 });
                 AlertName.show();
+            }
+        });
+
+        btnQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent obj = new Intent(AccountSetting.this , QR.class);
+                obj.putExtra("Email", accEmail.getText().toString().trim());
+                startActivity(obj);
             }
         });
 

@@ -40,17 +40,14 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/fin"/>
 
-            <TextView android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#372c24"
-                android:text="User"/>
-            <EditText android:layout_width="fill_parent"
-                android:id="@+id/email"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
-                android:layout_marginBottom="20dip"
-                android:hint="User email"
-                android:singleLine="true"/>
+            <Button
+                android:id="@+id/scanQR"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:text="Tap to Scan QR Code"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/loginbutton_background"/>
             <!--  Password Label -->
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -79,6 +76,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
+                android:background="@drawable/loginbutton_background"
                 android:text="Charge Fine"/>
             <!-- Link to Registration Screen -->
 

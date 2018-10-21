@@ -108,10 +108,28 @@ public class Home extends AppCompatActivity {
                             }
                             return true;
                         }
+                        /*if(menuItem.getItemId() == R.id.show_maps){
+                            Intent intent = new Intent(Home.this, QR.class);
+                            startActivity(intent);
+                        }*/
+
                         if(menuItem.getItemId() == R.id.accSetting){
                             Intent intent = new Intent(Home.this, AccountSetting.class);
                             startActivity(intent);
                         }
+                        if(menuItem.getItemId() == R.id.createambulance){
+                            Intent intent = new Intent(Home.this, Ambulance.class);
+                            startActivity(intent);
+                        }
+                        if(menuItem.getItemId() == R.id.show_maps) {
+                            Intent intent = new Intent(Home.this, MapsActivity.class);
+                            startActivity(intent);
+                        }
+                        if(menuItem.getItemId() == R.id.ambulance){
+                            Intent intent = new Intent(Home.this, MapsActivity2.class);
+                            startActivity(intent);
+                        }
+
                         if(menuItem.getItemId() == R.id.createZone){
                             Intent intent = new Intent(Home.this, CreateZone.class);
                             startActivity(intent);
@@ -162,8 +180,12 @@ public class Home extends AppCompatActivity {
                         Log.d("current",snapshot.getValue(String.class));
                         if(snapshot.getValue(String.class).equals("commuters")){
                             navigationView.getMenu().findItem(R.id.viewFine).setVisible(true);
-                        }else if(snapshot.getValue(String.class).equals("officer")){
+                            navigationView.getMenu().findItem(R.id.createZone).setVisible(true);
+                        } if(snapshot.getValue(String.class).equals("officer")){
                             navigationView.getMenu().findItem(R.id.fineOfficer).setVisible(true);
+                        }
+                        if(snapshot.getValue(String.class).equals("ambulance")){
+                            navigationView.getMenu().findItem(R.id.createambulance).setVisible(true);
                         }
                     }
                     if(tkey.equals("userImgUrl")){
