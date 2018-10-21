@@ -21,7 +21,7 @@
                 android:scaleType="fitXY"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                app:srcCompat="@drawable/signup_buttton"/>
+                app:srcCompat="@drawable/profile_pic"/>
             <TextView
                 android:id="@+id/head_name"
                 android:layout_width="wrap_content"

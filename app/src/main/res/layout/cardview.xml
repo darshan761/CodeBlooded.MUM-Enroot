@@ -1,0 +1,59 @@
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    card_view:cardBackgroundColor="@android:color/transparent"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="3dp"
+    card_view:contentPadding="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:text="FINE"
+            android:textSize="30dp"
+            android:background="@android:color/holo_blue_dark"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:id="@+id/Officer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:textColor="@android:color/black"
+            android:text="Officer"
+            android:textSize="24dp"
+            />
+        <TextView
+            android:id="@+id/FineType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_below="@+id/Officer"
+            android:text="Fine Type"
+            android:textSize="24dp"
+            />
+        <TextView
+            android:id="@+id/Amt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/FineType"
+            android:textColor="@android:color/black"
+            android:text="Amount"
+            android:textSize="24dp"
+            />
+
+
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

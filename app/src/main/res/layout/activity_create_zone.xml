@@ -11,77 +11,77 @@
 
     <ImageView
         android:id="@+id/picture"
-        android:layout_width="213dp"
-        android:layout_height="139dp"
+        android:layout_width="200dp"
+        android:layout_height="140dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="63dp"
         android:adjustViewBounds="true"
         android:cropToPadding="false"
         android:scaleType="fitCenter"
-        android:visibility="visible" />
+        android:src="@drawable/cameraimg"
+        android:visibility="visible"
+        android:layout_marginBottom="20dp"/>
 
-
-    <Button
+    <TextView
         android:id="@+id/capture"
-        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:text="Capture Image"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
-        android:text="CAPTURE ZONE" />
-
-    <Button
-        android:id="@+id/save_local"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:text="Save To Gallery"
-        android:layout_alignParentLeft="true" />
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/save_cloud"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="170dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:text="Upload The Zone"
         android:layout_alignParentRight="true" />
 
-    <EditText
-        android:id="@+id/editTextSolution"
-        android:layout_width="182dp"
-        android:layout_height="82dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="79dp"
-        android:ems="10"
-        android:hint="Give Solution"
-        android:inputType="textPersonName"
-        android:layout_alignParentRight="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/RGDonatecategory">
+        <EditText
+            android:id="@+id/editTextDescription"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignTop="@+id/editTextSolution"
+            android:ems="10"
+            android:hint="Give Description"
+            android:inputType="textPersonName"
+            android:selectAllOnFocus="false"
+            android:layout_alignParentLeft="true" />
 
-    <EditText
-        android:id="@+id/editTextDescription"
-        android:layout_width="162dp"
-        android:layout_height="82dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/editTextSolution"
-        android:ems="10"
-        android:hint="Give Description"
-        android:inputType="textPersonName"
-        android:selectAllOnFocus="false"
-        android:layout_alignParentLeft="true" />
+            <EditText
+                android:id="@+id/editTextSolution"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="79dp"
+                android:ems="10"
+                android:hint="Give Solution"
+                android:inputType="textPersonName"
+                android:layout_alignParentRight="true" />
+    </LinearLayout>
 
     <RadioGroup
         android:id="@+id/RGDonatecategory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="184dp">
+        android:layout_below="@+id/picture">
 
         <RadioButton
             android:id="@+id/RBDonatetoys"
