@@ -46,6 +46,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 public class CreateZone extends AppCompatActivity /*implements View.OnClickListener*/ {
@@ -195,8 +196,8 @@ public class CreateZone extends AppCompatActivity /*implements View.OnClickListe
                         final String ZoneLat = Lat;
                         final String ZoneLong = Logg;
                         String ZoneKey = databaseReference.push().getKey();
-                        Zone zn = new Zone(auth.getUid(), ZoneTitle, ZoneData, ZoneSolution,
-                                ZoneLat, ZoneLong, "null", "null", zoneImageURI);
+                        Zone zn = new Zone(auth.getUid()+ new Random().nextInt(1000), ZoneTitle, ZoneData, ZoneSolution,
+                                ZoneLat, ZoneLong,0,0 , zoneImageURI);
                         databaseReference.child(ZoneKey).setValue(zn);
                         Toast.makeText(CreateZone.this, " All The Details Added Successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(CreateZone.this, Home.class);

@@ -233,9 +233,9 @@ public class Home extends AppCompatActivity {
                 String key = this.getRef(position).getKey().toString();
                 Log.d("key",key);
                 Log.d("Position", String.valueOf(position));
-
+                zoneViewHolder.setCounter(zone.getZoneStatusUpVote(),zone.getZoneStatusDownVote());
                 zoneViewHolder.setKey(key);
-                zoneViewHolder.setContext(getApplicationContext());
+                zoneViewHolder.setContext(getApplicationContext(),zone.getZoneID());
                 zoneViewHolder.setTitle(zone.getZoneTitle());
                 zoneViewHolder.setUserAuthID(zone.getZoneID());
                 zoneViewHolder.setInfo(zone.getZoneData());
