@@ -50,11 +50,11 @@ import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 
-import com.loopj.android.http.*;
+//import com.loopj.android.http.*;
 
-import org.json.*;
+//import org.json.*;
 
-import cz.msebera.android.httpclient.Header;
+//import cz.msebera.android.httpclient.Header;
 
 public class CreateZone extends AppCompatActivity /*implements View.OnClickListener*/ {
     private static final String TAG = "CapturePicture";
@@ -101,7 +101,7 @@ public class CreateZone extends AppCompatActivity /*implements View.OnClickListe
         Toast.makeText(getApplicationContext(), "Sarah is Dumb!", Toast.LENGTH_SHORT).show();
 
         String url = "http://172.16.2.4:8000/commuters_app/get_preds";
-        AsyncHttpClient client = new AsyncHttpClient();
+       /* AsyncHttpClient client = new AsyncHttpClient();
         File myFile = new File("C:/Users/Chinmay Rane/Desktop/dog.jpg");
         RequestParams params = new RequestParams();
         params.setForceMultipartEntityContentType(true);
@@ -127,7 +127,7 @@ public class CreateZone extends AppCompatActivity /*implements View.OnClickListe
 
                 Toast.makeText(getApplicationContext(), "Connection Failed!", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Zones");
         //ztitle = (EditText) findViewById(R.id.editTextTitle);

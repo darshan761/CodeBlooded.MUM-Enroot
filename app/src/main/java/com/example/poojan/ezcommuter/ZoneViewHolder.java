@@ -111,6 +111,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                                     && x.child("zoneID").getValue(String.class).equals(ID)) {
                                 up.setEnabled(false);
                                 down.setEnabled(false);
+                                solve.setEnabled(false);
                                 up.setBackgroundResource(R.drawable.blue_like);
                                 down.setBackgroundResource(R.drawable.dislike);
                             }
@@ -118,6 +119,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                                     && x.child("zoneID").getValue(String.class).equals(ID)) {
                                 down.setEnabled(false);
                                 up.setEnabled(false);
+                                solve.setEnabled(false);
                                 down.setBackgroundResource(R.drawable.blue_dislike);
                                 up.setBackgroundResource(R.drawable.like);
                             }
@@ -152,6 +154,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                                             v.child("zoneID").setValue(ID);
                                             v.child("userID").setValue(auth.getCurrentUser().getUid());
                                             v.child("type").setValue("UPVote");
+                                           // v.child("score").setValue(250);
                                             un++;
                                           //  Log.d("ID",x.child("zoneId").getValue().toString());
                                             Log.d("count",x.child("zoneStatusUpVote").getValue().toString());
