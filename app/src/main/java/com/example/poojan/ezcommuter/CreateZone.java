@@ -43,11 +43,18 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
+
+import com.loopj.android.http.*;
+
+import org.json.*;
+
+import cz.msebera.android.httpclient.Header;
 
 public class CreateZone extends AppCompatActivity /*implements View.OnClickListener*/ {
     private static final String TAG = "CapturePicture";
@@ -88,6 +95,39 @@ public class CreateZone extends AppCompatActivity /*implements View.OnClickListe
         rg = (RadioGroup)findViewById(R.id.RGDonatecategory);
 
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+        //Hitting API
+
+        Toast.makeText(getApplicationContext(), "Sarah is Dumb!", Toast.LENGTH_SHORT).show();
+
+        String url = "http://172.16.2.4:8000/commuters_app/get_preds";
+        AsyncHttpClient client = new AsyncHttpClient();
+        File myFile = new File("C:/Users/Chinmay Rane/Desktop/dog.jpg");
+        RequestParams params = new RequestParams();
+        params.setForceMultipartEntityContentType(true);
+        //params.put("q", "Sarah is dumb!");
+        try {
+            params.put("dog_image", myFile);
+        } catch(FileNotFoundException e) {}
+        //params.put("rsz", "8");
+
+        client.post(url, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                // Root JSON in response is an dictionary i.e { "data : [ ... ] }
+                // Handle resulting parsed JSON response here
+
+                Toast.makeText(getApplicationContext(), "Connection Successful!", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+
+                Toast.makeText(getApplicationContext(), "Connection Failed!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Zones");
         //ztitle = (EditText) findViewById(R.id.editTextTitle);

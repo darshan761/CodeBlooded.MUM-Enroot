@@ -48,6 +48,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -76,7 +77,7 @@ public class MapsActivity extends AppCompatActivity
     String Lat , Logg;
     double latti , longi;
     private static final int REQUEST_LOCATION = 1;
-    DatabaseReference ref;
+    DatabaseReference ref, reff;
     //GeoFire geoFire;
     Marker myCurrent;
 
@@ -90,7 +91,9 @@ public class MapsActivity extends AppCompatActivity
         setContentView(R.layout.activity_maps);
 
         ref = FirebaseDatabase.getInstance().getReference("Zones");
-        //geoFire = new GeoFire(ref);
+        String currentID = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        reff = FirebaseDatabase.getInstance().getReference("MyLocation");
+        geoFire = new GeoFire(reff);
 
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -212,7 +215,7 @@ public class MapsActivity extends AppCompatActivity
 
 
 
-        /*//Creating Dangerous Area
+        //Creating Dangerous Area
         LatLng dangerous_area1 = new LatLng(19.0729216,72.9008471);
         myMap.addCircle(new CircleOptions()
                 .center(dangerous_area1)
@@ -226,17 +229,18 @@ public class MapsActivity extends AppCompatActivity
         myMap.addCircle(new CircleOptions()
                 .center(dangerous_area2)
                 .radius(500)
-                .strokeColor(Color.BLUE)
+                .strokeColor(Color.RED)
                 .fillColor(0x220000ff)
                 .strokeWidth(5.0f));
 
         //Add GeoQuery Here
 
-       /* GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(dangerous_area1.latitude,dangerous_area1.longitude),0.5f);
+        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(19.073542313881514, 72.89969501162396),0.5f);
         geoQuery.addGeoQueryEventListener(new GeoQueryEventListener() {
+
+
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
-
             public void onKeyEntered(String key, GeoLocation location) {
                 sendNotification("DangerZone",String.format("%s Entered into the ZoneArea",key));
                 Log.d("INSIDE", "flag");
@@ -264,7 +268,7 @@ public class MapsActivity extends AppCompatActivity
                 Log.e("Error","check:"+error);
 
             }
-        });*/
+        });
 
     }
 
@@ -285,7 +289,12 @@ public class MapsActivity extends AppCompatActivity
         not.flags |= Notification.FLAG_AUTO_CANCEL;
         not.defaults |= Notification.DEFAULT_SOUND;
 
-        manager.notify(new Random().nextInt(),not);
+        try {
+            manager.notify(new Random().nextInt(), not);
+        }catch (Exception e){
+
+            Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -352,7 +361,7 @@ public class MapsActivity extends AppCompatActivity
 
             Log.d("MyTag",ss+ ", "+sss);
 
-            /*geoFire.setLocation("You", new GeoLocation(latti, longi), new GeoFire.CompletionListener() {
+            geoFire.setLocation("You", new GeoLocation(latti, longi), new GeoFire.CompletionListener() {
                 @Override
                 public void onComplete(String key, DatabaseError error) {
                     //ADD Marker
@@ -366,7 +375,7 @@ public class MapsActivity extends AppCompatActivity
                     //Move The Camera Position
                     myMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latti,longi),16.0f));
                 }
-            });*/
+            });
 
 
             LatLng latLng = new LatLng(latti, longi);
