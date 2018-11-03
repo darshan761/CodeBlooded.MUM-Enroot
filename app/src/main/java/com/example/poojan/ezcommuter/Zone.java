@@ -2,11 +2,11 @@ package com.example.poojan.ezcommuter;
 
 public class Zone {
     String zoneID , zoneTitle , zoneData , zoneSolution , zoneLat , zoneLong , zoneImage ;
-    long zoneStatusUpVote, zoneStatusDownVote;
+    long zoneStatusUpVote, zoneStatusDownVote, solvedCount;
     public Zone() {
     }
 
-    public Zone(String zoneID, String zoneTitle, String zoneData, String zoneSolution, String zoneLat, String zoneLong, long zoneStatusUpVote, long zoneStatusDownVote, String zoneImage) {
+    public Zone(String zoneID, String zoneTitle, String zoneData, String zoneSolution, String zoneLat, String zoneLong, long zoneStatusUpVote, long zoneStatusDownVote,long solvedCount, String zoneImage) {
         this.zoneID = zoneID;
         this.zoneTitle = zoneTitle;
         this.zoneData = zoneData;
@@ -15,7 +15,16 @@ public class Zone {
         this.zoneLong = zoneLong;
         this.zoneStatusUpVote = zoneStatusUpVote;
         this.zoneStatusDownVote = zoneStatusDownVote;
+        this.solvedCount = solvedCount;
         this.zoneImage = zoneImage;
+    }
+
+    public long getSolvedCount() {
+        return solvedCount;
+    }
+
+    public void setSolvedCount(long solvedCount) {
+        this.solvedCount = solvedCount;
     }
 
     public String getZoneID() {

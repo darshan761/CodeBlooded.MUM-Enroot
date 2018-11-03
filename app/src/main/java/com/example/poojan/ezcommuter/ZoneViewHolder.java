@@ -2,6 +2,7 @@ package com.example.poojan.ezcommuter;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ZoneViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView userName, title, info, solution,like,dislike;
+    private TextView userName, title, info, solution,like,dislike,solve_count,solve;
     LinearLayout wholeCard;
     private ImageView up,down;
     private ImageView zoneImage;
@@ -42,6 +43,8 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
         dislike = itemView.findViewById(R.id.dislikecounter);
         up = (ImageView)itemView.findViewById(R.id.like);
         down = (ImageView)itemView.findViewById(R.id.dislike);
+        solve_count = itemView.findViewById(R.id.solve_count);
+        solve = itemView.findViewById(R.id.issue_solved);
         }
 
 
@@ -97,6 +100,44 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
 
             }
         });
+        FirebaseDatabase.getInstance().getReference().child("Votes")
+                .orderByChild("userID").equalTo(auth.getCurrentUser().getUid())
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                      //  Log.d("type",dataSnapshot.child("type").getValue(String.class));
+                        for(DataSnapshot x:dataSnapshot.getChildren()) {
+                            if (x.child("type").getValue(String.class).equals("UPVote")
+                                    && x.child("zoneID").getValue(String.class).equals(ID)) {
+                                up.setEnabled(false);
+                                down.setEnabled(false);
+                                up.setBackgroundResource(R.drawable.blue_like);
+                                down.setBackgroundResource(R.drawable.dislike);
+                            }
+                            if (x.child("type").getValue(String.class).equals("DOWNVote")
+                                    && x.child("zoneID").getValue(String.class).equals(ID)) {
+                                down.setEnabled(false);
+                                up.setEnabled(false);
+                                down.setBackgroundResource(R.drawable.blue_dislike);
+                                up.setBackgroundResource(R.drawable.like);
+                            }
+                            if (x.child("type").getValue(String.class).equals("Solved")
+                                    && x.child("zoneID").getValue(String.class).equals(ID)) {
+                                down.setEnabled(false);
+                                up.setEnabled(false);
+                                solve.setEnabled(false);
+                                down.setBackgroundResource(R.drawable.dislike);
+                                solve.setTextColor(Color.GREEN);
+                                up.setBackgroundResource(R.drawable.like);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
                 up.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -116,6 +157,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                                             Log.d("count",x.child("zoneStatusUpVote").getValue().toString());
                                             x.child("zoneStatusUpVote").getRef().setValue(un);
                                             up.setEnabled(false);
+                                            down.setEnabled(false);
                                             up.setBackgroundResource(R.drawable.blue_like);
 
                                         };
@@ -134,6 +176,8 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                         @Override
                         public void onClick(View view) {
                             DatabaseReference r = FirebaseDatabase.getInstance().getReference().child("Zones");
+
+
                             final DatabaseReference v = FirebaseDatabase.getInstance().getReference().child("Votes").push();
                             r.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
@@ -147,6 +191,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                                             v.child("type").setValue("DOWNVote");
                                             x.child("zoneStatusDownVote").getRef().setValue(un);
                                             down.setEnabled(false);
+                                            up.setEnabled(false);
                                             down.setBackgroundResource(R.drawable.blue_dislike);
                                         };
                                     }
@@ -160,6 +205,40 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
 
                         }
                     });
+        solve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference r = FirebaseDatabase.getInstance().getReference().child("Zones");
+
+
+                final DatabaseReference v = FirebaseDatabase.getInstance().getReference().child("Votes").push();
+                r.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot x: dataSnapshot.getChildren()){
+                            if(x.child("zoneID").getValue().toString().equals(ID)){
+                                long un = x.child("solvedCount").getValue(long.class);
+                                un++;
+                                v.child("zoneID").setValue(ID);
+                                v.child("userID").setValue(auth.getCurrentUser().getUid());
+                                v.child("type").setValue("Solved");
+                                x.child("solvedCount").getRef().setValue(un);
+                                down.setEnabled(false);
+                                up.setEnabled(false);
+                                solve.setEnabled(false);
+                                solve.setTextColor(Color.GREEN);
+                            };
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+        });
                 }
 
     public void setKey(String key){
@@ -174,26 +253,36 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
     public void setSolution(String postSolution){
         solution.setText(postSolution);
     }
-    public void setUserAuthID(String authKey) {
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("user_details");
-        db.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void setUserAuthID( String authKey) {
+         key = authKey;
+        FirebaseDatabase.getInstance().getReference()
+                .child("user_details")
+                .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                userName.setText(user.getUserName());
-                type = user.getUserType();
+                for(DataSnapshot x:dataSnapshot.getChildren()){
+                    Log.d("sissii",key.substring(0,28));
+                if(x.getKey().equals(key.substring(0,28))) {
+
+                    User user = x.getValue(User.class);
+                    userName.setText(user.getUserName());
+                    type = user.getUserType();
+                }
               //  Log.d("TYPE",type);
+            }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+
+    });
     }
-    public void setCounter(long up,long down){
+    public void setCounter(long up,long down,long solve){
         like.setText(Long.toString(up));
         dislike.setText(Long.toString(down));
+        solve_count.setText(Long.toString(solve));
     }
     public void setImage(String imgUri){
         Glide.with(context).load(imgUri).into(zoneImage);

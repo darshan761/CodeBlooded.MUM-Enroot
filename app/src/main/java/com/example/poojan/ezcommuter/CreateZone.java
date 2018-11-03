@@ -237,7 +237,7 @@ public class CreateZone extends AppCompatActivity /*implements View.OnClickListe
                         final String ZoneLong = Logg;
                         String ZoneKey = databaseReference.push().getKey();
                         Zone zn = new Zone(auth.getUid()+ new Random().nextInt(1000), ZoneTitle, ZoneData, ZoneSolution,
-                                ZoneLat, ZoneLong,0,0 , zoneImageURI);
+                                ZoneLat, ZoneLong,0,0 ,0, zoneImageURI);
                         databaseReference.child(ZoneKey).setValue(zn);
                         Toast.makeText(CreateZone.this, " All The Details Added Successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(CreateZone.this, Home.class);
